@@ -44,7 +44,8 @@ cd repository-name
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # On Linux
+venv\Scripts\activate     # On Windows
 ```
 
 ## Install Dependencies
