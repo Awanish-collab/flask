@@ -31,27 +31,6 @@ project_root/
 │   │   │   └── logo.png  # Logo image
 ```
 
-## Installation and Setup
-
-Follow these steps to set up and run the project on your local machine:
-
-### Step 1: Clone the Repository
-Clone the repository from GitHub to your local machine:
-```bash
-git clone https://github.com/username/repository-name.git
-cd repository-name
-```
-
-### Step 2: Set Up a Virtual Environment
-
-It's highly recommended to use a virtual environment to isolate the project's dependencies from your system-wide Python installation. This helps prevent conflicts and keeps your system organized.
-
-1. **Create a virtual environment:**
-
-   ```bash
-   python3 -m venv venv
-   ```
-
 # Installation and Setup
 
 ## Clone the Repository
