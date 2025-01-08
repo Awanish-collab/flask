@@ -52,44 +52,62 @@ It's highly recommended to use a virtual environment to isolate the project's de
    python3 -m venv venv
    ```
 
-Installation and Setup
-Clone the Repository:
-bash
-Copy code
+# Installation and Setup
+
+## Clone the Repository
+
+```bash
 git clone https://github.com/username/repository-name.git
 cd repository-name
-Set Up a Virtual Environment:
-bash
-Copy code
+```
+
+## Set Up a Virtual Environment
+
+```bash
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-Install Dependencies:
-bash
-Copy code
+```
+
+## Install Dependencies
+
+```bash
 pip install flask
-Run the Application:
-bash
-Copy code
+```
+
+## Run the Application
+
+```bash
 python app.py
-Access the Application:
-Open your browser and navigate to http://127.0.0.1:5000.
+```
 
-How to Use the Application
-1. Navigating the Pages:
-Home Page: Provides an introduction to the application.
-About Page: Details about the project and its purpose.
-Contact Page: Includes a contact form for user interaction.
-2. Contact Form:
-The contact form on the Contact Page requires:
+## Access the Application
 
-Name: Your full name.
-Email: A valid email address.
-Message: Your message or query.
+Open your browser and navigate to `http://127.0.0.1:5000`.
+
+# How to Use the Application
+
+## 1. Navigating the Pages
+
+The application consists of several main pages:
+
+* **Home Page**: Provides an introduction to the application.
+* **About Page**: Details about the project and its purpose.
+* **Contact Page**: Includes a contact form for user interaction.
+
+## 2. Contact Form
+
+The contact form on the Contact Page requires the following information:
+
+* **Name**: Your full name
+* **Email**: A valid email address
+* **Message**: Your message or query
+
 Once filled, the form can be submitted for backend processing (future enhancements include form submission handling).
 
-3. Adding New Pages:
-To add a new page:
+## 3. Adding New Pages
 
-Create an HTML file in the templates/ folder.
-Add a route in app.py with @app.route("/new-page").
-Use url_for to link the new page in the navigation bar.
+To add a new page to the application:
+
+1. Create an HTML file in the `templates/` folder
+2. Add a route in `app.py` with `@app.route("/new-page")`
+3. Use `url_for` to link the new page in the navigation bar
