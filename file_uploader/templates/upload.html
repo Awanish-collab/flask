@@ -17,6 +17,8 @@
         
         <button type="submit">Upload</button>
     </form>
+    <!-- get_flashed_messages() : will get all temporary session data from server
+    with messages : here messages is temprary variable, it will only create by the help of with statement. -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul>
