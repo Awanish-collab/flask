@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Session</title>
+</head>
+<body>
+    <h1>Get Session Data</h1>
+    {% if username %}
+        <p>Session Username: {{ username }}</p>
+    {% else %}
+        <p>No session data found.</p>
+    {% endif %}
+    <a href="/">Go Back</a>
+</body>
+</html>
