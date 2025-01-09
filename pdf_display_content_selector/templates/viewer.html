@@ -1,0 +1,120 @@
+<!-- templates/viewer.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Viewer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+    </script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto space-y-6">
+        <!-- PDF Viewer -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-xl mb-4">PDF Viewer</h2>
+            <div id="pdfViewer" class="border-2 border-gray-200 min-h-[600px]">
+                <canvas id="pdfCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Selected Text Box -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-xl mb-4">Selected Text</h2>
+            <textarea id="selectedText" class="w-full h-32 p-2 border rounded" 
+                      placeholder="Selected text will appear here"></textarea>
+        </div>
+    </div>
+
+    <script>
+        // Load the PDF
+        const loadPDF = async () => {
+            const pdfFile = '{{ url_for("static", filename="uploads/" + pdf_file) }}';
+            const loadingTask = pdfjsLib.getDocument(pdfFile);
+            const pdf = await loadingTask.promise;
+            
+            // Load the first page
+            const page = await pdf.getPage(1);
+            const scale = 1.5;
+            const viewport = page.getViewport({ scale });
+
+            // Prepare canvas for rendering
+            const canvas = document.getElementById('pdfCanvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Render PDF page
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            await page.render(renderContext);
+
+            // Enable text selection
+            page.getTextContent().then(function(textContent) {
+                const textItems = textContent.items;
+                const textLayer = document.createElement('div');
+                textLayer.className = 'textLayer';
+                textLayer.style.left = canvas.offsetLeft + 'px';
+                textLayer.style.top = canvas.offsetTop + 'px';
+                textLayer.style.height = canvas.height + 'px';
+                textLayer.style.width = canvas.width + 'px';
+                
+                document.getElementById('pdfViewer').appendChild(textLayer);
+                
+                pdfjsLib.renderTextLayer({
+                    textContent: textContent,
+                    container: textLayer,
+                    viewport: viewport,
+                    textDivs: []
+                });
+            });
+        };
+
+        // Handle text selection
+        document.addEventListener('mouseup', function() {
+            const selectedText = window.getSelection().toString();
+            if (selectedText) {
+                document.getElementById('selectedText').value = selectedText;
+            }
+        });
+
+        // Load PDF when page loads
+        window.onload = loadPDF;
+    </script>
+
+    <style>
+        .textLayer {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            opacity: 0.2;
+            line-height: 1.0;
+        }
+
+        .textLayer > span {
+            color: transparent;
+            position: absolute;
+            white-space: pre;
+            cursor: text;
+            transform-origin: 0% 0%;
+        }
+
+        .textLayer .highlight {
+            margin: -1px;
+            padding: 1px;
+            background-color: rgb(180, 0, 170);
+            border-radius: 4px;
+        }
+
+        .textLayer .highlight.selected {
+            background-color: rgb(0, 100, 0);
+        }
+    </style>
+</body>
+</html>
