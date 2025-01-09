@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+</head>
+<body>
+    <h1>Upload a File</h1>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <!-- enctype="multipart/form-data": Ensures the form can handle file uploads. -->
+        <input type="file" name="file">
+        
+        <!-- <input type="file" name="file">: Creates a file input field that lets users select a file from their device.
+        type="file": Specifies that this input is for uploading files.
+        name="file": Assigns a name to the input, allowing Flask to access the file data using request.files['file']. -->
+        
+        <button type="submit">Upload</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+</body>
+</html>
